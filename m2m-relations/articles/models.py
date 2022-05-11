@@ -14,3 +14,12 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+class Tag(models.Model):  # Создаем класс для тэгов
+    name = models.CharField(max_length=32)
+    article = models.ManyToManyField(Article, related_name='tags', through='Scope')
+
+class Scope(models.Model):  № Это промежуточная таблица, в которой 5 свойтсва один ко многим + is_main - главный тэг
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes')
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes')
+    is_main = models.BooleanField(default=False)
