@@ -20,6 +20,9 @@ class Tag(models.Model):  # Создаем класс для тэгов
     name = models.CharField(max_length=32)
     article = models.ManyToManyField(Article, related_name='tags', through='Scope')
 
+    class Meta:
+        verbose_name = 'Раздел'
+        verbose_name_plural = 'Разделы'
 
 
     def __str__(self):
@@ -27,8 +30,8 @@ class Tag(models.Model):  # Создаем класс для тэгов
 
 class Scope(models.Model):  # Это промежуточная таблица, в которой 5 свойтсва один ко многим + is_main - главный тэг
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes')
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes')
-    is_main = models.BooleanField(default=False)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes', verbose_name='раздел')
+    is_main = models.BooleanField(default=False, verbose_name='основной')
 
     class Meta:
         verbose_name = 'Тема'

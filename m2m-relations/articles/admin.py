@@ -17,6 +17,7 @@ class ScopeInlineFormset(BaseInlineFormSet):
         return super().clean()  # вызываем базовый код переопределяемого метода
 
 
+
 class ScopeInline(admin.TabularInline):
     model = Scope
     formset = ScopeInlineFormset
